@@ -8,7 +8,7 @@ class User
   
   DEFAULT_EFFECTIVE_DATE = Time.gm(2012, 7, 1)
   
-  devise :database_authenticatable, :registerable, :timeoutable,
+  devise :database_authenticatable, :registerable, :timeoutable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:username]
 
 
@@ -59,7 +59,12 @@ class User
   field :provider, type: Boolean
   field :practice, type: String
   # Added 8/29/12 by BS for multiple groups per install
-  field :teams, type: Array # added from bstrezze 
+  field :teams, type: Array # added from bstrezze
+
+  #Lockable
+  field :failed_attempts, type: Integer, default: 0
+  field :unlocked_token, type: String
+  field :locked_at, type: Time
 	  
   scope :ordered_by_username, order_by([:username, :asc])
  attr_protected :practice, :provider, :admin, :approved, :disabled, :encrypted_password, :remember_created_at, :reset_password_token, :reset_password_sent_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :effective_date
@@ -147,6 +152,10 @@ class User
 
   def revoke_admin
     update_attribute(:admin, false)
+  end
+  
+  def unlock_token=(val)
+    update_attribute(:unlock_token,val)
   end
 
 end
