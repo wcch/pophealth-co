@@ -24,7 +24,7 @@ PATH
 PATH
   remote: ../quality-measure-engine-v2
   specs:
-    quality-measure-engine (2.5.3)
+    quality-measure-engine (2.5.1)
       delayed_job_mongoid (~> 2.0.0)
       mongoid (~> 3.1.4)
       moped (~> 1.5.1)
