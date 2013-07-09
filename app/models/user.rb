@@ -63,7 +63,7 @@ class User
 
   #Lockable
   field :failed_attempts, type: Integer, default: 0
-  field :unlocked_token, type: String
+  field :unlock_token, type: String
   field :locked_at, type: Time
 	  
   scope :ordered_by_username, order_by([:username, :asc])
@@ -154,8 +154,5 @@ class User
     update_attribute(:admin, false)
   end
   
-  def unlock_token=(val)
-    update_attribute(:unlock_token,val)
-  end
 
 end
